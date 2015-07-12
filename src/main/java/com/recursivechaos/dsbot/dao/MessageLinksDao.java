@@ -8,8 +8,8 @@
 package com.recursivechaos.dsbot.dao;
 
 import com.recursivechaos.dsbot.domain.MessageLinks;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface MessageLinksDao extends CrudRepository<MessageLinks, Long> {
+public interface MessageLinksDao extends MongoRepository<MessageLinks, String> {
 
 }

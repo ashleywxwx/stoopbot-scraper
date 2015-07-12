@@ -10,21 +10,14 @@ package com.recursivechaos.dsbot.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import org.springframework.data.annotation.Id;
 
 @Data
-@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Mentions {
 
     @Id
-    Long id;
-    @ManyToOne
-    @JoinColumn(name="self")
+    String id;
     Links links;
     @JsonProperty("mention_name")
     String mentionName;

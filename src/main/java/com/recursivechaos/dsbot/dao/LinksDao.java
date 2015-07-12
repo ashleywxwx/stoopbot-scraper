@@ -8,8 +8,8 @@
 package com.recursivechaos.dsbot.dao;
 
 import com.recursivechaos.dsbot.domain.Links;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface LinksDao extends CrudRepository<Links, String> {
+public interface LinksDao extends MongoRepository<Links, String> {
 
 }

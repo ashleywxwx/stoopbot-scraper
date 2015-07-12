@@ -10,12 +10,11 @@ package com.recursivechaos.dsbot.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data
-@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Items {
 
@@ -24,16 +23,11 @@ public class Items {
     String date;
     String message;
     String type;
-    @ManyToOne(cascade = CascadeType.ALL)
     From from;
-    @OneToMany
-    @JoinColumn(name="id")
     List<Mentions> mentions;
     @JsonProperty("message_format")
     String messageFormat;
     @JsonProperty("message_links")
-    @OneToMany
-    @JoinColumn(name="pk")
     List<MessageLinks> messageLinks;
 
 }

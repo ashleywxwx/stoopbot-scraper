@@ -9,11 +9,9 @@ package com.recursivechaos.dsbot.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
 
 @Data
-@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Links {
 
