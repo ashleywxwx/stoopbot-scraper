@@ -5,18 +5,22 @@
  * Licensed under MIT License 2015. See license.txt for details.
  */
 
-package com.recursivechaos.dsbot.domain;
+package com.recursivechaos.stoopbot.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Image {
+public class Mentions {
 
     @Id
-    String image;
+    String id;
+    Links links;
+    @JsonProperty("mention_name")
+    String mentionName;
     String name;
 
 }

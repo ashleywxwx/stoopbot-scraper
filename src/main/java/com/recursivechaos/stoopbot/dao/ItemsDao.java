@@ -5,9 +5,9 @@
  * Licensed under MIT License 2015. See license.txt for details.
  */
 
-package com.recursivechaos.dsbot.dao;
+package com.recursivechaos.stoopbot.dao;
 
-import com.recursivechaos.dsbot.domain.Items;
+import com.recursivechaos.stoopbot.domain.Items;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface ItemsDao extends MongoRepository<Items, String> {

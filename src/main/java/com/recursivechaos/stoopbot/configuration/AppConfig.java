@@ -5,7 +5,7 @@
  * Licensed under MIT License 2015. See license.txt for details.
  */
 
-package com.recursivechaos.dsbot.configuration;
+package com.recursivechaos.stoopbot.configuration;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;

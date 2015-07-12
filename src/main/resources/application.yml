@@ -1,4 +1,4 @@
 db:
   mongo:
     url: localhost
-    dbname: dsbot
+    dbname: stoopbot

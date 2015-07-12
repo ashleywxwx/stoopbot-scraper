@@ -5,11 +5,11 @@
  * Licensed under MIT License 2015. See license.txt for details.
  */
 
-package com.recursivechaos.dsbot.component;
+package com.recursivechaos.stoopbot.component;
 
-import com.recursivechaos.dsbot.dao.ItemsDao;
-import com.recursivechaos.dsbot.domain.History;
-import com.recursivechaos.dsbot.domain.Items;
+import com.recursivechaos.stoopbot.dao.ItemsDao;
+import com.recursivechaos.stoopbot.domain.History;
+import com.recursivechaos.stoopbot.domain.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +23,10 @@ import java.util.List;
 @Component
 public class HistoryScraper {
 
-    @Autowired
-    ItemsDao itemsDao;
-
     private final Logger log = LoggerFactory.getLogger(HistoryScraper.class);
     public String lastStored = "";
+    @Autowired
+    ItemsDao itemsDao;
     RestTemplate restTemplate = new RestTemplate();
     String roomName = "Stoopbots";
 
@@ -60,17 +59,17 @@ public class HistoryScraper {
         int itemCount = itemsList.size();
         for (int i = itemCount - 1; i >= 0; i--) {
             Items currentItem = itemsList.get(i);
-                if (firstPulled.equals("")) {
-                    firstPulled = currentItem.getId();
-                    log.debug("Saved first pulled: " + firstPulled);
-                }
-                if (currentItem.getId().equals(myLastStored)) {
-                    log.debug("All caught up");
-                    break;
-                } else {
-                    itemsDao.save(currentItem);
-                    log.info("Pulled message: " + currentItem);
-                }
+            if (firstPulled.equals("")) {
+                firstPulled = currentItem.getId();
+                log.debug("Saved first pulled: " + firstPulled);
+            }
+            if (currentItem.getId().equals(myLastStored)) {
+                log.debug("All caught up");
+                break;
+            } else {
+                itemsDao.save(currentItem);
+                log.info("Pulled message: " + currentItem);
+            }
         }
         return firstPulled;
     }

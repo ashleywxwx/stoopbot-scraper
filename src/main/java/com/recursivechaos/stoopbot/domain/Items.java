@@ -5,7 +5,7 @@
  * Licensed under MIT License 2015. See license.txt for details.
  */
 
-package com.recursivechaos.dsbot.domain;
+package com.recursivechaos.stoopbot.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
