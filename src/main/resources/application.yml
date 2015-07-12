@@ -1,0 +1,4 @@
+db:
+  mongo:
+    url: localhost
+    dbname: dsbot
