@@ -11,10 +11,6 @@ import com.recursivechaos.stoopbot.domain.Items;
 
 import java.util.List;
 
-public class HistoryService {
-
-    public static String getLatestMessageId(List<Items> itemsList) {
-        return itemsList.get(itemsList.size() - 1).getId();
-    }
-
+public interface ScrapeService {
+    List<Items> getNewItems();
 }
