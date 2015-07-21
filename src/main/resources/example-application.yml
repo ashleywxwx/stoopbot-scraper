@@ -1,0 +1,10 @@
+db:
+  mongo:
+    url: (mongo url)
+    dbname: (db name)
+
+hipchat:
+  domain:
+    url: (your companies subdomain. i.e. the 'company name' of companyname.hipchat.com)
+    key: (your private key)
+    room: (the room to scrape)

@@ -8,40 +8,47 @@
 package com.recursivechaos.stoopbot.component;
 
 import com.recursivechaos.stoopbot.dao.ItemsDao;
-import com.recursivechaos.stoopbot.domain.History;
 import com.recursivechaos.stoopbot.domain.Items;
+import com.recursivechaos.stoopbot.service.HistoryService;
+import com.recursivechaos.stoopbot.service.RoomRequestService;
+import com.recursivechaos.stoopbot.service.ScrapeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@SuppressWarnings("SpringJavaAutowiringInspection")
 @Component
 public class HistoryScraper {
 
     private final Logger log = LoggerFactory.getLogger(HistoryScraper.class);
-    public String lastStored = "";
+
     @Autowired
     ItemsDao itemsDao;
-    RestTemplate restTemplate = new RestTemplate();
-    String roomName = "Stoopbots";
+
+    @Autowired
+    ScrapeService scrapeService;
+
+    @Autowired
+    RoomRequestService roomRequestService;
 
     @Scheduled(fixedRate = 3000)
     public void getHistory() {
 
-        ResponseEntity<History> responseEntity = pollHistory();
-        checkRateLimit(responseEntity);
-        String latestMessageId = getLatestMessageId(responseEntity);
-        log.debug("Last stored id: " + lastStored);
-        List<Items> itemsList = responseEntity.getBody().getItems();
+        List<Items> itemsList = roomRequestService.pollHistory();
+        String latestPolledMessage = HistoryService.getLatestMessageId(itemsList);
+        String latestStoredMessage = itemsDao.findAll(new Sort(Sort.Direction.DESC, "date")).get(0).getId();
+        log.trace("Last polled id: " + latestPolledMessage);
+        log.trace("Last stored id: " + latestStoredMessage);
 
-        if (newItemsFound(latestMessageId, lastStored)) {
-            String firstPulled = findNewMessagesAndReturnNewIndex(itemsList, lastStored);
-            lastStored = updateLastStored(firstPulled, lastStored);
+
+        if (newItemsFound(latestPolledMessage, latestStoredMessage)) {
+            String firstPulled = findNewMessagesAndReturnNewIndex(itemsList, latestStoredMessage);
+            //lastStored = updateLastStored(firstPulled, lastStored);
         }
 
         log.debug("Done polling history.");
@@ -82,23 +89,6 @@ public class HistoryScraper {
             log.debug("No new messages found.");
         }
         return found;
-    }
-
-    private String getLatestMessageId(ResponseEntity<History> responseEntity) {
-        String mid = responseEntity.getBody().getItems().get(responseEntity.getBody().getItems().size() - 1).getId();
-        log.debug("Latest Message ID: " + mid);
-        return mid;
-    }
-
-    private void checkRateLimit(ResponseEntity<History> responseEntity) {
-        String rateRemaining = responseEntity.getHeaders().get("X-RateLimit-Remaining").toString();
-        log.debug("Rate remaining: " + rateRemaining);
-    }
-
-    // Queries Hipchat for latest history
-    private ResponseEntity<History> pollHistory() {
-        log.debug("Polling history...");
-        return restTemplate.getForEntity("http://stoopkids.hipchat.com/v2/room/" + roomName + "/history?auth_token=pwQwG9WNVu3RYMMVdpvChgcISJGqrasUpSzhPkYA", History.class);
     }
 
 }

@@ -21,7 +21,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 public class AppConfig {
 
     private String url;
-
     private String dbname;
 
     @Bean

@@ -1,4 +1,0 @@
-db:
-  mongo:
-    url: localhost
-    dbname: stoopbot

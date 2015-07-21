@@ -14,3 +14,6 @@ hs_err_pid*
 
 ## Directory-based project format:
 .idea/
+
+## Property Files
+application*.yml

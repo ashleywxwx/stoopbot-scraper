@@ -20,5 +20,4 @@ public class MessageLinks {
     Image image;
     String type;
 
-
 }
