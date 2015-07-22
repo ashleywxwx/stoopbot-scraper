@@ -46,7 +46,6 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.16.4</version>
-      <!--<scope>provided</scope>-->
     </dependency>
 
     <!-- Testing -->
@@ -70,7 +69,9 @@
         <configuration>
           <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
           <baseImage>java</baseImage>
-          <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+          <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"
+            "-Dspring.config.location=file:/opt/properties/dsbot-scraper/"]
+          </entryPoint>
           <!-- copy the service's jar file from target into the root directory of the image -->
           <resources>
             <resource>
