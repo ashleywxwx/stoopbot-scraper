@@ -1,2 +1,3 @@
-image: dsbot/dsbot-scraper
+dsbot-scraper:
+  image: dsbot/dsbot-scraper
 
