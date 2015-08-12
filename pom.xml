@@ -76,6 +76,9 @@
         </executions>
         <configuration>
           <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+          <imageTags>
+            <imageTag>${project.version}</imageTag>
+          </imageTags>
           <baseImage>java</baseImage>
           <entryPoint>
             <!-- Don't let any auto-formatting break this line up -->

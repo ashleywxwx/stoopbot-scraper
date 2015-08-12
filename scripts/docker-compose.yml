@@ -1,4 +1,0 @@
-scraper:
-  image: dsbot/dsbot-scraper
-  volumes:
-    - /opt/properties/dsbot-scraper:/opt/properties/ds-botscraper
