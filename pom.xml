@@ -66,16 +66,24 @@
         <groupId>com.spotify</groupId>
         <artifactId>docker-maven-plugin</artifactId>
         <version>0.2.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
           <baseImage>java</baseImage>
           <entryPoint>
-            ["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.config.location=file:/opt/properties/dsbot-scraper/"]
+            <!-- Don't let any auto-formatting break this line up -->
+            ["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.config.location=file:/opt/properties/${project.build.finalName}/"]
           </entryPoint>
           <!-- copy the service's jar file from target into the root directory of the image -->
           <resources>
             <resource>
-              <targetPath>/</targetPath>
               <directory>${project.build.directory}</directory>
               <include>${project.build.finalName}.jar</include>
             </resource>
