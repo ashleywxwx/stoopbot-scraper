@@ -11,4 +11,4 @@
 
     mvn package 
     
-Set environment variable DOCKER_HOST=tcp://<host>:2375 to run against a remote Docker host. Otherwise, will use localhost
+Set environment variable DOCKER_HOST=tcp://hostname:2375 to run against a remote Docker host. Otherwise, will use localhost
